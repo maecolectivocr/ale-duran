@@ -21,23 +21,28 @@ python3 -m http.server 8000   # http://localhost:8000
 - **Instagram:** @aleduran_m
 - **Email:** `booking@aleduran.com` ← ⚠️ placeholder, reemplazar si hay uno real.
 
-## 📸 Fotos (carpeta `images/`)
-Colocar con estos **nombres exactos**. Mientras no existan, se ve un marcador con el nombre.
+## 📸 Fotos (carpeta `images/`) — ya cargadas
+Todas en `.webp` optimizado (~1600 px, 50-74 KB).
 
 | Archivo | Uso |
 |---|---|
-| `ale.webp` | **Principal** — hero, sección "Sobre Ale" y galería (la foto de estudio) |
-| `gallery-2.jpg` | Galería (opcional) |
-| `gallery-3.jpg` | Galería (opcional) |
-| `gallery-4.jpg` | Galería ancha (opcional) |
+| `ale.webp` | Hero + galería destacada (canto al micrófono) |
+| `about.webp` | Sección "Sobre Ale" (retrato frontal) |
+| `gallery-2/3/4.webp` | Galería |
 
-### Convertir la foto a .webp (macOS, sin instalar nada)
+### Reemplazar / agregar fotos (.webp con Python+Pillow)
 ```bash
 cd ~/Desktop/repositorios\ web/ale-duran
-# desde tu archivo original (jpg/png/heic):
-sips -s format webp "/ruta/a/la/foto-de-ale.jpg" --out images/ale.webp
+python3 - <<'PY'
+from PIL import Image
+im = Image.open("/ruta/a/foto.jpg").convert("RGB")
+MAX=1600; w,h=im.size
+if max(w,h)>MAX:
+    s=MAX/max(w,h); im=im.resize((round(w*s),round(h*s)), Image.LANCZOS)
+im.save("images/ale.webp","WEBP",quality=82,method=6)
+PY
 ```
-> Recomendado: lado largo ~1600 px, calidad alta. Orientación vertical (retrato).
+> Nota: `sips` de macOS lee `.webp` pero no lo escribe; por eso se usa Pillow.
 
 ## Deploy en Netlify
 - **Rápido:** arrastrar la carpeta a https://app.netlify.com/drop

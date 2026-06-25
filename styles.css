@@ -219,7 +219,7 @@ section { position: relative; padding: clamp(4.5rem, 9vw, 8.5rem) clamp(1.25rem,
 .gallery__item:hover::before { opacity: 1; }
 .gallery__item--tall { grid-row: span 2; }
 .gallery__item--wide { grid-column: span 2; }
-.gallery__item--video { grid-column: span 2; background: linear-gradient(150deg, var(--surface-2), var(--bg-2)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; color: var(--accent); }
+.gallery__item--video { grid-column: span 3; background: linear-gradient(150deg, var(--surface-2), var(--bg-2)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem; color: var(--accent); }
 .gallery__play { width: 64px; height: 64px; border-radius: 50%; border: 1px solid rgba(255,94,91,.5); display: flex; align-items: center; justify-content: center; color: var(--accent); transition: transform .35s var(--ease), background .35s var(--ease); }
 .gallery__item--video:hover .gallery__play { transform: scale(1.1); background: rgba(255,94,91,.12); }
 .gallery__item--video figcaption { font-family: var(--ff-display); font-weight: 600; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; z-index: 2; }
