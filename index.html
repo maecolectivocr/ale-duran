@@ -314,12 +314,12 @@
 
       <form class="contact__form reveal" id="bookingForm" novalidate>
         <div class="field">
-          <label for="name" data-i18n="ct.fName">Nombre</label>
-          <input type="text" id="name" name="name" autocomplete="name" required />
+          <label for="name"><span data-i18n="ct.fName">Nombre</span> <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" required aria-required="true" />
         </div>
         <div class="field">
-          <label for="email" data-i18n="ct.fEmail">Email</label>
-          <input type="email" id="email" name="email" autocomplete="email" required />
+          <label for="email"><span data-i18n="ct.fEmail">Email</span> <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required aria-required="true" />
         </div>
         <div class="field field--row">
           <div>
@@ -343,6 +343,7 @@
           <textarea id="message" name="message" rows="4"></textarea>
         </div>
         <button type="submit" class="btn btn--grad btn--block" id="submitBtn" data-i18n="ct.submit">Enviar por WhatsApp</button>
+        <p class="form__error" id="formError" role="alert" aria-live="assertive" hidden></p>
         <p class="form__note" data-i18n="ct.note">Se abrirá WhatsApp con tu mensaje listo para enviar.</p>
       </form>
     </div>

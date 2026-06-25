@@ -53,7 +53,8 @@
       'ct.fMsg': 'Contame sobre tu evento', 'ct.submit': 'Enviar por WhatsApp', 'ct.note': 'Se abrirá WhatsApp con tu mensaje listo para enviar.',
       'ft.tag': 'Música en vivo · Pacífico de Costa Rica', 'ft.rights': 'Todos los derechos reservados.',
       // mensaje del formulario → WhatsApp
-      'wa.intro': 'Hola Ale, me gustaría consultar disponibilidad.', 'wa.name': 'Nombre', 'wa.email': 'Email', 'wa.date': 'Fecha del evento', 'wa.type': 'Tipo de evento'
+      'wa.intro': 'Hola Ale, me gustaría consultar disponibilidad.', 'wa.name': 'Nombre', 'wa.email': 'Email', 'wa.date': 'Fecha del evento', 'wa.type': 'Tipo de evento',
+      'err.required': 'Por favor completá tu nombre y un email válido.'
     },
     en: {
       'meta.title': 'Ale Durán — Live Singer · Pacific Coast, Costa Rica',
@@ -96,7 +97,8 @@
       'ct.fSelect': 'Select…', 'ct.optWedding': 'Wedding', 'ct.optHotel': 'Hotel / Resort', 'ct.optCorp': 'Corporate event', 'ct.optPrivate': 'Private dinner', 'ct.optOther': 'Other',
       'ct.fMsg': 'Tell me about your event', 'ct.submit': 'Send via WhatsApp', 'ct.note': 'WhatsApp will open with your message ready to send.',
       'ft.tag': "Live music · Pacific Coast, Costa Rica", 'ft.rights': 'All rights reserved.',
-      'wa.intro': "Hi Ale, I'd like to check availability.", 'wa.name': 'Name', 'wa.email': 'Email', 'wa.date': 'Event date', 'wa.type': 'Event type'
+      'wa.intro': "Hi Ale, I'd like to check availability.", 'wa.name': 'Name', 'wa.email': 'Email', 'wa.date': 'Event date', 'wa.type': 'Event type',
+      'err.required': 'Please enter your name and a valid email.'
     }
   };
 
@@ -209,13 +211,23 @@
       var message = form.message.value.trim();
 
       var ok = true;
-      [['name', name], ['email', email]].forEach(function (pair) {
-        var field = form[pair[0]].closest('.field');
-        if (!pair[1]) { field.classList.add('is-error'); ok = false; }
-        else { field.classList.remove('is-error'); }
+      var emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      [['name', !!name], ['email', !!email && emailValid]].forEach(function (pair) {
+        var input = form[pair[0]];
+        var field = input.closest('.field');
+        field.classList.toggle('is-error', !pair[1]);
+        input.setAttribute('aria-invalid', String(!pair[1]));
+        if (!pair[1]) ok = false;
       });
-      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { form.email.closest('.field').classList.add('is-error'); ok = false; }
-      if (!ok) { var first = form.querySelector('.is-error input'); if (first) first.focus(); return; }
+
+      var errBox = document.getElementById('formError');
+      if (!ok) {
+        if (errBox) { errBox.hidden = false; errBox.textContent = t('err.required'); }
+        var first = form.querySelector('.is-error input');
+        if (first) first.focus();
+        return;
+      }
+      if (errBox) { errBox.hidden = true; errBox.textContent = ''; }
 
       var lines = [
         t('wa.intro'), '',
