@@ -12,6 +12,7 @@
      ========================================================= */
   var I18N = {
     es: {
+      'a11y.skip': 'Saltar al contenido',
       'meta.title': 'Ale Durán — Cantante en vivo · Pacífico de Costa Rica',
       'meta.desc': 'Ale Durán, cantante en vivo en el Pacífico de Costa Rica. Música para hoteles boutique, bodas, cenas privadas y eventos corporativos.',
       'nav.brandSub': 'Cantante en vivo',
@@ -36,7 +37,7 @@
       'rep.f3name': 'Dúo Rock Pop', 'rep.f3': 'Con Lucho Aguilar: dos voces, dos guitarras.',
       'rep.f4name': 'Dúo Guitarra & Percusión', 'rep.f4': 'Formato acústico con base rítmica, también disponible.',
       'rep.f5name': 'Banda', 'rep.f5': 'Formato ampliado para fiestas y grandes celebraciones.',
-      'gal.eyebrow': 'Galería', 'gal.title': 'Verla & escucharla.', 'gal.video': 'Video en vivo',
+      'gal.eyebrow': 'Galería', 'gal.title': 'Verla & escucharla.', 'gal.video': 'Video próximamente',
       'ev.eyebrow': 'Para tu evento', 'ev.title': 'Una propuesta a la altura de tu marca.',
       'ev.sub': 'Música en vivo profesional, puntual y discreta. Sonido propio, vestuario acorde y repertorio coordinado contigo previo al evento.',
       'ev.c1t': 'Hoteles boutique & resorts', 'ev.c1p': 'Ambiente sonoro para lobbies, terrazas, restaurantes y atardeceres.',
@@ -60,6 +61,7 @@
       'err.required': 'Por favor completá tu nombre y un email válido.'
     },
     en: {
+      'a11y.skip': 'Skip to content',
       'meta.title': 'Ale Durán — Live Singer · Pacific Coast, Costa Rica',
       'meta.desc': "Ale Durán, live singer on Costa Rica's Pacific coast. Music for boutique hotels, weddings, private dinners and corporate events.",
       'nav.brandSub': 'Live Singer',
@@ -84,7 +86,7 @@
       'rep.f3name': 'Duo Rock Pop', 'rep.f3': 'With Lucho Aguilar: two voices, two guitars.',
       'rep.f4name': 'Duo Guitar & Percussion', 'rep.f4': 'Acoustic format with rhythmic base, also available.',
       'rep.f5name': 'Band', 'rep.f5': 'Expanded format for parties and large celebrations.',
-      'gal.eyebrow': 'Gallery', 'gal.title': 'Watch & listen.', 'gal.video': 'Live video',
+      'gal.eyebrow': 'Gallery', 'gal.title': 'Watch & listen.', 'gal.video': 'Video coming soon',
       'ev.eyebrow': 'For your event', 'ev.title': 'An act worthy of your brand.',
       'ev.sub': 'Professional, punctual and discreet live music. Own sound system, fitting attire and a repertoire coordinated with you ahead of the event.',
       'ev.c1t': 'Boutique hotels & resorts', 'ev.c1p': 'Ambient sound for lobbies, terraces, restaurants and sunsets.',
@@ -174,14 +176,29 @@
   });
 
   /* ---------- Placeholders de imagen ---------- */
-  document.querySelectorAll('[data-img]').forEach(function (el) {
+  function loadImg(el) {
     var file = el.getAttribute('data-img');
     if (!file) return;
     var probe = new Image();
     probe.onload = function () { el.style.backgroundImage = 'url("./images/' + file + '")'; el.classList.remove('is-empty'); };
     probe.onerror = function () { el.classList.add('is-empty'); };
     probe.src = './images/' + file;
-  });
+  }
+  var allImgs = Array.prototype.slice.call(document.querySelectorAll('[data-img]'));
+  // Hero: siempre visible al cargar → carga inmediata
+  allImgs.filter(function (el) { return el.closest('.hero'); }).forEach(loadImg);
+  // Resto (about, galería, etc.): lazy-load real al entrar al viewport
+  var lazyImgs = allImgs.filter(function (el) { return !el.closest('.hero'); });
+  if ('IntersectionObserver' in window) {
+    var imgIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { loadImg(entry.target); imgIo.unobserve(entry.target); }
+      });
+    }, { rootMargin: '200px 0px' });
+    lazyImgs.forEach(function (el) { imgIo.observe(el); });
+  } else {
+    lazyImgs.forEach(loadImg);
+  }
 
   /* ---------- Reveal on scroll ---------- */
   var reveals = document.querySelectorAll('.reveal');
