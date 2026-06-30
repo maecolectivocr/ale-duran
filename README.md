@@ -19,16 +19,23 @@ python3 -m http.server 8000   # http://localhost:8000
 ## ✏️ Datos ya cargados
 - **WhatsApp:** +506 8585 8566 (`50685858566`) — botón flotante, contacto, footer y formulario.
 - **Instagram:** @aleduran_m
-- **Email:** `booking@aleduran.com` ← ⚠️ placeholder, reemplazar si hay uno real.
+- **Email:** `adurancontrataciones@outlook.com`
+
+## 🎤 Formatos
+Solo, Dúo Plancha Rock (con Rayssa), Dúo Rock Pop (con Lucho Aguilar), Dúo Guitarra & Percusión, Banda.
+Editar en `script.js` → claves `rep.f1`...`rep.f5` / `rep.f2name`...`rep.f5name`.
 
 ## 📸 Fotos (carpeta `images/`) — ya cargadas
-Todas en `.webp` optimizado (~1600 px, 50-74 KB).
+Todas en `.webp` optimizado (~1600 px, 50-110 KB).
 
 | Archivo | Uso |
 |---|---|
 | `ale.webp` | Hero + galería destacada (canto al micrófono) |
 | `about.webp` | Sección "Sobre Ale" (retrato frontal) |
-| `gallery-2/3/4.webp` | Galería |
+| `gallery-2/3/4.webp` | Galería — sesión de estudio |
+| `duo-rayssa.webp` | Galería + formato "Dúo Plancha Rock" |
+| `duo-lucho.webp` | Galería + formato "Dúo Rock Pop" |
+| `banda.webp` | Galería + formato "Banda" |
 
 ### Reemplazar / agregar fotos (.webp con Python+Pillow)
 ```bash
