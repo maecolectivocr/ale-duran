@@ -211,7 +211,7 @@ section { position: relative; padding: clamp(4.5rem, 9vw, 8.5rem) clamp(1.25rem,
    REPERTOIRE
    ========================================================= */
 .repertoire { background: var(--bg-2); }
-.cards { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+.cards { position: relative; z-index: 1; max-width: var(--maxw); margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 2rem 1.6rem; transition: transform .4s var(--ease), border-color .4s var(--ease), background .4s var(--ease); }
 .card:hover { transform: translateY(-6px); border-color: rgba(var(--accent-rgb),.5); background: var(--surface-2); }
 .card__index { font-family: var(--ff-display); font-weight: 500; font-style: italic; font-size: .95rem; color: var(--accent); opacity: .9; }
