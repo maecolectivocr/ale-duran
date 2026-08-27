@@ -18,7 +18,7 @@ python3 -m http.server 8000   # http://localhost:8000
 
 ## ✏️ Datos ya cargados
 - **WhatsApp:** +506 8585 8566 (`50685858566`) — botón flotante, contacto, footer y formulario.
-- **Instagram:** @aleduran_m
+- **Instagram:** @aleduranmusiccr
 - **Email:** `adurancontrataciones@outlook.com`
 
 ## 🎤 Formatos
